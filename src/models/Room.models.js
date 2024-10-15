@@ -23,4 +23,4 @@ export const Room = sequelize.define(
   },
 );
 
-Room.sync();
+Room.sync({force: true});

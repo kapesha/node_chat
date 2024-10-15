@@ -10,6 +10,7 @@ export const getOneRoom = async (req, res) => {
 
   if (!room) {
     res.status(404);
+
     return;
   }
   res.status(200);
@@ -22,6 +23,7 @@ export const createRoom = async (req, res) => {
   if (!roomName) {
     res.status(400);
   }
+
   const room = {
     roomName,
   };
@@ -41,8 +43,10 @@ const deleteR = async (id) => {
 
 export const deleteRoom = async (req, res) => {
   const { id } = req.params;
+
   if (!(await Room.findByPk(id))) {
     res.sendStatus(404);
+
     return;
   }
 
@@ -62,6 +66,7 @@ export const renameRoom = async (req, res) => {
 
   if (!(await Room.findByPk(id))) {
     res.sendStatus(404);
+
     return;
   }
 
@@ -69,6 +74,7 @@ export const renameRoom = async (req, res) => {
 
   if (!updatedRomm) {
     res.sendStatus(404);
+
     return;
   }
   res.status(200).json(updatedRomm);
