@@ -35,4 +35,4 @@ export const Message = sequelize.define(
   },
 );
 
-Message.sync({ force: true });
+Message.sync();

@@ -6,11 +6,12 @@ import {
   getRooms,
   renameRoom,
 } from '../controllers/room.controller.js';
+import { catchError } from '../catcherrors.js';
 
 export const roomsRoute = express.Router();
 
-roomsRoute.get('/', getRooms);
-roomsRoute.get('/:id', getOneRoom);
-roomsRoute.post('/', createRoom);
-roomsRoute.delete('/:id', deleteRoom);
-roomsRoute.patch('/:id', renameRoom);
+roomsRoute.get('/', catchError(getRooms));
+roomsRoute.get('/:id', catchError(getOneRoom));
+roomsRoute.post('/', catchError(createRoom));
+roomsRoute.delete('/:id', catchError(deleteRoom));
+roomsRoute.patch('/:id', catchError(renameRoom));

@@ -9,7 +9,7 @@ export const getOneRoom = async (req, res) => {
   const room = await Room.findByPk(id);
 
   if (!room) {
-    res.status(404);
+    res.status(404).send({ message: 'cant get a room' });
 
     return;
   }
@@ -21,16 +21,17 @@ export const createRoom = async (req, res) => {
   const { roomName } = req.body;
 
   if (!roomName) {
-    res.status(400);
+    res.status(400).send({ message: 'room name is required' });
   }
 
   const room = {
     roomName,
   };
 
-  await Room.create(room);
+  const newRoom = await Room.create(room);
+
   res.status(201);
-  res.send(room);
+  res.send(newRoom);
 };
 
 const deleteR = async (id) => {
@@ -73,7 +74,7 @@ export const renameRoom = async (req, res) => {
   const updatedRomm = await patchRoom({ roomName, id });
 
   if (!updatedRomm) {
-    res.sendStatus(404);
+    res.sendStatus(404).send({ message: 'cant update a room' });
 
     return;
   }
