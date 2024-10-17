@@ -72,7 +72,7 @@ export const renameRoom = async (req, res) => {
   const updatedRomm = await patchRoom({ roomName, id });
 
   if (!updatedRomm) {
-    res.send(404).send({ message: 'cant update a room' });
+    res.status(404).send({ message: 'cant update a room' });
 
     return;
   }

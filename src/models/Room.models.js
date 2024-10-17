@@ -22,5 +22,3 @@ export const Room = sequelize.define(
     createdAt: false,
   },
 );
-
-Room.sync();

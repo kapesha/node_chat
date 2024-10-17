@@ -9,7 +9,10 @@ export const getMessages = async (req, res) => {
   const whereClauses = {};
   const { roomId } = req.query;
 
-  whereClauses.roomId = roomId;
+  if (roomId) {
+    whereClauses.roomId = roomId;
+  }
+
   res.send(await Message.findAll({ where: whereClauses }));
 };
 
@@ -17,15 +20,15 @@ export const postMessage = async (req, res) => {
   const { text, author, roomId } = req.body;
 
   if (!text) {
-    res.status(400).send({ message: 'Text message is missing' });
+    return res.status(400).send({ message: 'Text message is missing' });
   }
 
   if (!author) {
-    res.status(400).send({ message: 'Author of text is missing' });
+    return res.status(400).send({ message: 'Author of text is missing' });
   }
 
   if (!roomId) {
-    res.status(400).send({ message: 'Room is missing' });
+    return res.status(400).send({ message: 'Room is missing' });
   }
 
   const message = {
