@@ -16,8 +16,16 @@ export const getMessages = async (req, res) => {
 export const postMessage = async (req, res) => {
   const { text, author, roomId } = req.body;
 
-  if (!text || !author || !roomId) {
-    res.status(400).send({ message: 'one of nessesery parys is required' });
+  if (!text) {
+    res.status(400).send({ message: 'Text message is missing' });
+  }
+
+  if (!author) {
+    res.status(400).send({ message: 'Author of text is missing' });
+  }
+
+  if (!roomId) {
+    res.status(400).send({ message: 'Room is missing' });
   }
 
   const message = {
@@ -27,10 +35,11 @@ export const postMessage = async (req, res) => {
     roomId,
   };
 
-  if (!message) {
-    res.status(400).send({ message: 'message is required' });
+  try {
+    await Message.create(message);
+    emitter.emit(MESSAGE, message);
+    res.status(201).send(message);
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to create message' });
   }
-  await Message.create(message);
-  emitter.emit(MESSAGE, message);
-  res.status(201).send(message);
 };

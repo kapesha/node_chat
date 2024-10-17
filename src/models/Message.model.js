@@ -20,7 +20,7 @@ export const Message = sequelize.define(
       allowNull: false,
     },
     time: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       allowNull: false,
     },
     author: {
@@ -34,5 +34,3 @@ export const Message = sequelize.define(
     createdAt: false,
   },
 );
-
-Message.sync();

@@ -13,15 +13,14 @@ export const getOneRoom = async (req, res) => {
 
     return;
   }
-  res.status(200);
-  res.send(room);
+  res.status(200).send(room);
 };
 
 export const createRoom = async (req, res) => {
   const { roomName } = req.body;
 
   if (!roomName) {
-    res.status(400).send({ message: 'room name is required' });
+    return res.status(400).send({ message: 'room name is required' });
   }
 
   const room = {
@@ -30,8 +29,7 @@ export const createRoom = async (req, res) => {
 
   const newRoom = await Room.create(room);
 
-  res.status(201);
-  res.send(newRoom);
+  res.status(201).send(newRoom);
 };
 
 const deleteR = async (id) => {
@@ -74,7 +72,7 @@ export const renameRoom = async (req, res) => {
   const updatedRomm = await patchRoom({ roomName, id });
 
   if (!updatedRomm) {
-    res.sendStatus(404).send({ message: 'cant update a room' });
+    res.send(404).send({ message: 'cant update a room' });
 
     return;
   }
